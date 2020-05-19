@@ -1,4 +1,4 @@
-package org.example.streaming.reactive.repository;
+package org.example.streaming.reactive.model;
 
 import lombok.Getter;
 import lombok.Setter;
