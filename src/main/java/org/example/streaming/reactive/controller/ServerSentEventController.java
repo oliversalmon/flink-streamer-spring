@@ -2,8 +2,8 @@ package org.example.streaming.reactive.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.streaming.reactive.sse.TweetEvent;
-import org.example.streaming.reactive.sse.TweetPublisher;
+import org.example.streaming.reactive.sse.TweetsEvent;
+import org.example.streaming.reactive.sse.TweetsPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +12,10 @@ import reactor.core.publisher.Flux;
 
 @RestController
 public class ServerSentEventController {
-    private final Flux<TweetEvent> events;
+    private final Flux<TweetsEvent> events;
     private final ObjectMapper objectMapper;
 
-    public ServerSentEventController(TweetPublisher eventPublisher, ObjectMapper objectMapper) {
+    public ServerSentEventController(TweetsPublisher eventPublisher, ObjectMapper objectMapper) {
         this.events = Flux.create(eventPublisher).share();
         this.objectMapper = objectMapper;
     }

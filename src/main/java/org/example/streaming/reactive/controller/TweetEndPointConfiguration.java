@@ -16,7 +16,8 @@ public class TweetEndPointConfiguration {
 
     @Bean
     RouterFunction<ServerResponse> routes(TweetHandler handler) { // <1>
-        return route(i(GET("/tweets")), handler::all);
+        return
+                route(i(GET("/tweets")), handler::all);
     }
     private static RequestPredicate i(RequestPredicate target) {
         return new CaseInsensitiveRequestPredicate(target);

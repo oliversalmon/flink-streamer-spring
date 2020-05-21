@@ -3,9 +3,9 @@ package org.example.streaming.reactive.sse;
 import org.example.streaming.reactive.model.Tweets;
 import org.springframework.context.ApplicationEvent;
 
-public class TweetEvent extends ApplicationEvent {
+public class TweetsEvent extends ApplicationEvent {
 
-    public TweetEvent(Tweets source) {
+    public TweetsEvent(Tweets source) {
         super(source);
     }
 }
