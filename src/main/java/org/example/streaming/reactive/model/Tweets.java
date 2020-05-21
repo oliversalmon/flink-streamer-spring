@@ -1,15 +1,17 @@
 package org.example.streaming.reactive.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
+
 @Document
-public class Tweet {
+@Data // <2>
+@AllArgsConstructor
+@NoArgsConstructor
+public class Tweets {
 
-
+    @Id
     private String id_str;
     private String  text;
 

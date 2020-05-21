@@ -1,13 +1,12 @@
 package org.example.streaming.reactive.service;
 
-import lombok.extern.log4j.Log4j;
-import org.example.streaming.reactive.model.Tweet;
+import org.example.streaming.reactive.model.Tweets;
 import org.example.streaming.reactive.repository.TweetRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-@Log4j
+//@Log4j
 @Service
 public class TweetListService {
 
@@ -21,7 +20,7 @@ public class TweetListService {
 
     }
 
-    public Flux<Tweet> all() { // <3>
+    public Flux<Tweets> all() { // <3>
         return this.tweetRepository.findAll();
     }
 }

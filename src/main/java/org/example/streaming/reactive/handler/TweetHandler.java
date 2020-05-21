@@ -1,6 +1,6 @@
 package org.example.streaming.reactive.handler;
 
-import org.example.streaming.reactive.model.Tweet;
+import org.example.streaming.reactive.model.Tweets;
 import org.example.streaming.reactive.service.TweetListService;
 import org.reactivestreams.Publisher;
 import org.springframework.http.MediaType;
@@ -18,14 +18,14 @@ public class TweetHandler {
         this.tweetListService = tweetListService;
     }
 
-    Mono<ServerResponse> all(ServerRequest r) {
+    public Mono<ServerResponse> all(ServerRequest r) {
         return defaultReadResponse(this.tweetListService.all());
     }
 
-    private static Mono<ServerResponse> defaultReadResponse(Publisher<Tweet> profiles) {
+    private static Mono<ServerResponse> defaultReadResponse(Publisher<Tweets> tweets) {
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(profiles, Tweet.class);
+                .body(tweets, Tweets.class);
     }
 }

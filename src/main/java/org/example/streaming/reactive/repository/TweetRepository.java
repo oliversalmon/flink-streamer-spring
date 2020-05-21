@@ -1,9 +1,8 @@
 package org.example.streaming.reactive.repository;
 
-import org.example.streaming.reactive.model.Tweet;
+import org.example.streaming.reactive.model.Tweets;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import reactor.core.publisher.Flux;
 
-public interface TweetRepository extends ReactiveCrudRepository<Tweet, String> {
+public interface TweetRepository extends ReactiveCrudRepository<Tweets, String> {
     //Flux<Tweet> findAllByValue(String value);
 }
