@@ -21,6 +21,9 @@ public class TweetHandler {
     public Mono<ServerResponse> all(ServerRequest r) {
         return defaultReadResponse(this.tweetListService.all());
     }
+    public Mono<ServerResponse> getById(ServerRequest r) {
+        return defaultReadResponse(this.tweetListService.findById(id(r)));
+    }
 
 
 
@@ -29,5 +32,9 @@ public class TweetHandler {
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(tweets, Tweets.class);
+    }
+
+    private static String id(ServerRequest r) {
+        return r.pathVariable("id");
     }
 }

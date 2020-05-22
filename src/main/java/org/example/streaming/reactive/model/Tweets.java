@@ -14,6 +14,7 @@ public class Tweets {
     @Id
     private String id_str;
     private String  text;
+    private User user;
 
 }
 

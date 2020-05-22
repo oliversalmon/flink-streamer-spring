@@ -18,7 +18,7 @@ public class TweetService {
     }
 
     public Flux<Tweets> findAll() {
-        return template.findAll(Tweets.class);
+        return template.findAll(Tweets.class).limitRate(1);
     }
 
 }

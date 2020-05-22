@@ -5,6 +5,7 @@ import org.example.streaming.reactive.service.TweetListService;
 import org.reactivestreams.Publisher;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,10 @@ public class TweetController {
         return this.tweetListRepository.all();
     }
 
-
+    @GetMapping("/{id}")
+    Publisher<Tweets> getById(@PathVariable("id") String id) {
+        return this.tweetListRepository.findById(id);
+    }
 
 
 }
