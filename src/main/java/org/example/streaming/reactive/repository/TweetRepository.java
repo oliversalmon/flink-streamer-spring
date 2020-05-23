@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.Tailable;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 
-public interface TweetRepository extends ReactiveMongoRepository<Tweets, String> {
+public interface TweetRepository extends ReactiveCrudRepository<Tweets, String> {
 
 
 

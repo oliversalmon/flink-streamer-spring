@@ -26,7 +26,7 @@ public class TweetController {
         return this.tweetListRepository.all();
     }
 
-    @GetMapping("/{id}")
+    //@GetMapping("/{id}")
     Publisher<Tweets> getById(@PathVariable("id") String id) {
         return this.tweetListRepository.findById(id);
     }
