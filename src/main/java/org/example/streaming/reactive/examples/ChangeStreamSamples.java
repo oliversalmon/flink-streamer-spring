@@ -59,7 +59,7 @@ public final class ChangeStreamSamples {
         // Create a new MongoClient with a MongoDB URI string.
         if (args.length == 0) {
             // Defaults to a localhost replicaset on ports: 27017, 27018, 27019
-            mongoClient = MongoClients.create(new ConnectionString("mongodb://localhost:27017"));
+            mongoClient = MongoClients.create(new ConnectionString("mongodb://root:1oNdZOMJBd@localhost:27017"));
         } else {
             mongoClient = MongoClients.create(new ConnectionString(args[0]));
         }
