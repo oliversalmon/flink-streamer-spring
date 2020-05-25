@@ -19,7 +19,7 @@ public class TweetHandler {
     }
 
     public Mono<ServerResponse> all(ServerRequest r) {
-        return defaultReadResponse(this.tweetListService.all());
+        return defaultStreamReadResponse(this.tweetListService.all());
     }
     public Mono<ServerResponse> getById(ServerRequest r) {
         return defaultReadResponse(this.tweetListService.findById(id(r)));
@@ -31,6 +31,13 @@ public class TweetHandler {
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(tweets, Tweets.class);
+    }
+
+    private static Mono<ServerResponse> defaultStreamReadResponse(Publisher<Tweets> tweets) {
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(tweets, Tweets.class);
     }
 

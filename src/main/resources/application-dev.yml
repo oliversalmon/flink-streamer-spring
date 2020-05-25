@@ -1,0 +1,10 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    mongodb:
+      #      uri: mongodb://root:1oNdZOMJBd@localhost:27017/TWITTER
+      host: localhost
+      port: 27017
+      authentication-database: admin
