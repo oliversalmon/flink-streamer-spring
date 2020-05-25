@@ -1,11 +1,22 @@
 package org.example.streaming.reactive.service;
 
+import com.mongodb.client.model.Filters;
 import org.example.streaming.reactive.model.Tweets;
 import org.example.streaming.reactive.repository.TweetRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.mongodb.core.ChangeStreamEvent;
+import org.springframework.data.mongodb.core.ChangeStreamOptions;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+
+import static java.util.Arrays.asList;
 
 //@Log4j
 @Service
@@ -13,11 +24,13 @@ public class TweetListService {
 
     private final ApplicationEventPublisher publisher; // <1>
     private final TweetRepository tweetRepository; // <2>
+    private final ReactiveMongoTemplate reactiveMongoTemplate;
 
-    TweetListService(ApplicationEventPublisher publisher, TweetRepository tweetRepository){
+    TweetListService(ApplicationEventPublisher publisher, TweetRepository tweetRepository, ReactiveMongoTemplate reactiveMongoTemplate){
 
         this.publisher = publisher;
         this.tweetRepository = tweetRepository;
+        this.reactiveMongoTemplate = reactiveMongoTemplate;
 
     }
 
@@ -29,5 +42,18 @@ public class TweetListService {
     public Mono<Tweets> findById(String Id){
         return this.tweetRepository.findById(Id);
     }
+
+
+    public Flux<Tweets> streamTweets(){
+
+        Flux changeStream = reactiveMongoTemplate
+                .changeStream("TWITTER",
+                        "tweets", ChangeStreamOptions.empty(),Tweets.class);
+
+
+         return changeStream;
+
+    }
+
 
 }

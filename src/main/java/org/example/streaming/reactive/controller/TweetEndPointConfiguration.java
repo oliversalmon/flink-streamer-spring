@@ -18,7 +18,8 @@ public class TweetEndPointConfiguration {
     RouterFunction<ServerResponse> routes(TweetHandler handler) { // <1>
         return
                 route(i(GET("/tweets") ), handler::all)
-                .andRoute(i(GET("/tweets/{id}") ), handler::getById);
+                        .andRoute(i(GET("/tweets/stream") ), handler::getTweetStream)
+                        .andRoute(i(GET("/tweets/{id}") ), handler::getById);
     }
     private static RequestPredicate i(RequestPredicate target) {
         return new CaseInsensitiveRequestPredicate(target);

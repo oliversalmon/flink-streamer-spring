@@ -5,12 +5,8 @@ Reactive service to read the data the at the Flink Twitter PoC has put on Mongo 
 kubectl -f create ns.yml
 kubectl -f 
 
-helm install  flink-mongo-release stable/mongodb-replicaset --kubeconfig flink-mongo-cluster-kubeconfig.yaml
-helm install  flink-mongo-release stable/mongodb --kubeconfig flink-mongo-cluster-kubeconfig.yaml --set ingress.enabled=true --set replicaSet.enabled=true
-helm install ingress-release stable/nginx-ingress --kubeconfig flink-mongo-cluster-kubeconfig.yaml --set tcp={27017: "flink-demo/mongodb:27017"}
 
-tcp:
-  27017: "default/mongodb:27017"
+helm install  flink-mongo-release stable/mongodb --kubeconfig flink-mongo-cluster-kubeconfig.yaml --set ingress.enabled=true --set replicaSet.enabled=true
   
 export MONGODB_ROOT_PASSWORD=$(kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml get secret --namespace default flink-mongo-release-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
 

@@ -3,6 +3,7 @@ package org.example.streaming.reactive.handler;
 import org.example.streaming.reactive.model.Tweets;
 import org.example.streaming.reactive.service.TweetListService;
 import org.reactivestreams.Publisher;
+import org.springframework.data.mongodb.core.ChangeStreamEvent;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -25,6 +26,10 @@ public class TweetHandler {
         return defaultReadResponse(this.tweetListService.findById(id(r)));
     }
 
+    public Mono<ServerResponse> getTweetStream(ServerRequest r) {
+        return defaultStreamReadResponseChangeEvent(this.tweetListService.streamTweets());
+    }
+
 
 
     private static Mono<ServerResponse> defaultReadResponse(Publisher<Tweets> tweets) {
@@ -35,6 +40,13 @@ public class TweetHandler {
     }
 
     private static Mono<ServerResponse> defaultStreamReadResponse(Publisher<Tweets> tweets) {
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .body(tweets, Tweets.class);
+    }
+
+    private static Mono<ServerResponse> defaultStreamReadResponseChangeEvent(Publisher<Tweets> tweets) {
         return ServerResponse
                 .ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
