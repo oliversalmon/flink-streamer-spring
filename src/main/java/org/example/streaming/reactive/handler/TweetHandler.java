@@ -6,6 +6,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.data.mongodb.core.ChangeStreamEvent;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -26,6 +27,7 @@ public class TweetHandler {
         return defaultReadResponse(this.tweetListService.findById(id(r)));
     }
 
+    //@CrossOrigin(origins = "http://localhost:3000")
     public Mono<ServerResponse> getTweetStream(ServerRequest r) {
         return defaultStreamReadResponseChangeEvent(this.tweetListService.streamTweets());
     }
