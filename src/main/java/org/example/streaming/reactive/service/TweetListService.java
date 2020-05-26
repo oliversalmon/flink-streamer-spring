@@ -1,6 +1,7 @@
 package org.example.streaming.reactive.service;
 
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.changestream.FullDocument;
 import org.example.streaming.reactive.model.Tweets;
 import org.example.streaming.reactive.repository.TweetRepository;
 import org.springframework.context.ApplicationEventPublisher;
@@ -48,7 +49,7 @@ public class TweetListService {
 
         Flux changeStream = reactiveMongoTemplate
                 .changeStream("TWITTER",
-                        "tweets", ChangeStreamOptions.empty(),Tweets.class);
+                        "tweets", ChangeStreamOptions.builder().filter(newAggregation(match(where("operationType").is("insert")))).fullDocumentLookup(FullDocument.UPDATE_LOOKUP).build(),Tweets.class);
 
 
          return changeStream;
