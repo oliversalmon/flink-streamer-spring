@@ -24,3 +24,7 @@ kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml port-forward --namespac
     mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
     
 kubectl run --kubeconfig=flink-mongo-cluster-kubeconfig.yaml --namespace default flink-mongo-release-mongodb-client --rm --tty -i --restart='Never' --image docker.io/bitnami/mongodb:4.2.4-debian-10-r0 --command -- mongo admin --host flink-mongo-release-mongodb --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
+
+`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/`
+
+`helm delete flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml`
