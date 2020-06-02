@@ -27,6 +27,13 @@ spec:
       serviceAccountName: {{ include "flink-streamer-spring.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: application-config
+          configMap:
+            name: {{ include "flink-streamer-spring.fullname" . }}
+            items:
+              - key: application-prod.yaml
+                path: application-prod.yaml
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -38,6 +45,10 @@ spec:
               value: "{{ .Values.environment.profile }}"
             - name: MONGO_PASSWORD
               value: "{{ .Values.environment.mongo_password }}"
+          volumeMounts:
+            - name: application-config
+              mountPath: "/config"
+              readOnly: true
           ports:
             - name: http
               containerPort: 80

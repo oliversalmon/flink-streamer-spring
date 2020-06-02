@@ -14,9 +14,10 @@ Activate the replica set "rs" through mongo shell:
 
 To install Mongodb replica set on the Kubernetes cluster through helm:
 
-`helm install  flink-mongo-release stable/mongodb --kubeconfig flink-mongo-cluster-kubeconfig.yaml --set ingress.enabled=true --set replicaSet.enabled=true`
+`helm install  flink-mongo-release stable/mongodb --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml --set ingress.enabled=true --set replicaSet.enabled=true`
   
  Obtain the password of the Mongo installation:
+ cd ~/.kube
   
 `export MONGODB_ROOT_PASSWORD=$(kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml get secret --namespace default flink-mongo-release-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)`
 
@@ -25,6 +26,6 @@ kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml port-forward --namespac
     
 kubectl run --kubeconfig=flink-mongo-cluster-kubeconfig.yaml --namespace default flink-mongo-release-mongodb-client --rm --tty -i --restart='Never' --image docker.io/bitnami/mongodb:4.2.4-debian-10-r0 --command -- mongo admin --host flink-mongo-release-mongodb --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
 
-`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/`
+`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/ --set environment.profile=prod`
 
 `helm delete flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml`
