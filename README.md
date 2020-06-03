@@ -14,6 +14,8 @@ Activate the replica set "rs" through mongo shell:
 
 To install Mongodb replica set on the Kubernetes cluster through helm:
 
+Note: the following steps assumes you have created a Kubernetes cluster on Digital Ocean and called it flink-mongo-cluster. Download the config file and run the following commands
+
 `helm install  flink-mongo-release stable/mongodb --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml --set ingress.enabled=true --set replicaSet.enabled=true`
   
  Obtain the password of the Mongo installation:
@@ -26,6 +28,9 @@ kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml port-forward --namespac
     
 kubectl run --kubeconfig=flink-mongo-cluster-kubeconfig.yaml --namespace default flink-mongo-release-mongodb-client --rm --tty -i --restart='Never' --image docker.io/bitnami/mongodb:4.2.4-debian-10-r0 --command -- mongo admin --host flink-mongo-release-mongodb --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
 
-`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/ --set environment.profile=prod`
+You will need to obtain the Mongo password before by running the export MONGODB_ROOT_PASSWORD and replacing the password below
+`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/ --set environment.profile=prod  --set environment.mongo_password=vZ3k1XiuW1
+`
 
+Once done, feel free to delete the release
 `helm delete flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml`
