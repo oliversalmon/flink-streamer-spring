@@ -10,5 +10,5 @@ ENV MONGO_PASSWORD=""
 
 ENTRYPOINT exec java $JAVA_OPTS \
  -Dspring.profiles.active=$SPRING_PROFILE \
- -Dmongo.password=$MONGO_PASSWORD \
+ -Dspring.data.mongo.password=$MONGO_PASSWORD \
  -jar app.jar

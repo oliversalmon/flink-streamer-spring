@@ -1,4 +1,13 @@
 # flink-streamer-spring
+
+To build the docker image
+
+`docker build -t dineshpillai/flink-streamer-spring .`
+
+to push to docker registry so the below helm charts can get to it
+
+`docker push dineshpillai/flink-streamer-spring`
+
 Reactive service to read the data the at the Flink Twitter PoC has put on Mongo and stream it to the UI
 
 Make mongo local database a replica set by running the following command:
@@ -29,8 +38,13 @@ kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml port-forward --namespac
 kubectl run --kubeconfig=flink-mongo-cluster-kubeconfig.yaml --namespace default flink-mongo-release-mongodb-client --rm --tty -i --restart='Never' --image docker.io/bitnami/mongodb:4.2.4-debian-10-r0 --command -- mongo admin --host flink-mongo-release-mongodb --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
 
 You will need to obtain the Mongo password before by running the export MONGODB_ROOT_PASSWORD and replacing the password below
-`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/ --set environment.profile=prod  --set environment.mongo_password=vZ3k1XiuW1
-`
+`helm install flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml ./flink-streamer-spring/ --set environment.profile=prod  --set environment.mongo_password=CUwFZvRH01`
+
+To port forward using kube proxy run the following command
+
+`kubectl --kubeconfig=flink-mongo-cluster-kubeconfig.yaml port-forward <POD NAME> 8082:8082'
+
+NOTE: You will need to obtain the pod name by running kubectl get pods and copying the name of the flink-spring-streamer pod name
 
 Once done, feel free to delete the release
 `helm delete flink-streamer-spring  --kubeconfig ~/.kube/flink-mongo-cluster-kubeconfig.yaml`

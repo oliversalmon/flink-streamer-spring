@@ -9,5 +9,5 @@ spring:
       port: 27017
       authentication-database: admin
       username: root
-      #password: ixzzzweGr9ja
+      password: ${MONGO_PASSWORD}
       database: TWITTER

@@ -7,7 +7,7 @@ metadata:
 data:
   application-prod.yaml: |-
     server:
-      port: 8081
+      port: 8082
 
     spring:
       data:
@@ -17,5 +17,5 @@ data:
           port: 27017
           authentication-database: admin
           username: root
-          #password: ixzzzweGr9ja
+          password: {{ .Values.environment.mongo_password }}
           database: TWITTER
