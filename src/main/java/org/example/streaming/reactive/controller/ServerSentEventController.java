@@ -34,6 +34,12 @@ public class ServerSentEventController {
         return this.tweetListService.streamTweets();
     }
 
+    @GetMapping(path = "/sse/deletetweets", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @CrossOrigin(origins = "http://localhost:3000")
+    public  Flux<Tweets> deleteTweets() {
+        return this.tweetListService.streamDeletedTweets();
+    }
+
 
 
 

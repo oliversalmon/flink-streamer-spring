@@ -56,5 +56,16 @@ public class TweetListService {
 
     }
 
+    public Flux<Tweets> streamDeletedTweets(){
+
+        Flux changeStream = reactiveMongoTemplate
+                .changeStream("TWITTER",
+                        "deleted_tweets", ChangeStreamOptions.builder().filter(newAggregation(match(where("operationType").is("insert")))).fullDocumentLookup(FullDocument.UPDATE_LOOKUP).build(),Tweets.class);
+
+
+        return changeStream;
+
+    }
+
 
 }
