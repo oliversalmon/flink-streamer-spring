@@ -29,13 +29,13 @@ public class ServerSentEventController {
     }
 
     @GetMapping(path = "/sse/tweets", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
     public  Flux<Tweets> tweets() {
         return this.tweetListService.streamTweets();
     }
 
     @GetMapping(path = "/sse/deletetweets", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
     public  Flux<Tweets> deleteTweets() {
         return this.tweetListService.streamDeletedTweets();
     }
